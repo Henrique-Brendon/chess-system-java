@@ -1,4 +1,4 @@
-package chess;
+	package chess;
 
 import boardgame.Board;
 import boardgame.Piece;
@@ -38,6 +38,9 @@ public class ChessMatch {
 	private void validateSourcePosition(Position position) {
 		if(!board.thereisApiece(position)) {
 			throw new ChessException("There is not piece on source position");
+		}
+		if(!board.piece(position).isThereAnyPossibleMove()) {
+			throw new ChessException("There is no possible moves for the chosen pieces");
 		}
 	}
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
