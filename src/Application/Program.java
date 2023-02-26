@@ -1,7 +1,9 @@
-	package Application;
+package Application;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import chess.ChessException;
 import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
@@ -14,16 +16,25 @@ public class Program {
 		ChessMatch chessMatch = new ChessMatch();
 		
 		while(true) {
-			Ui.printBoard(chessMatch.getPieces());
-			System.out.println();
-			System.out.println("Source: ");
-			ChessPosition source = Ui.readChessPosition(sc);
-	 		
-			System.out.println();
-			System.out.println("Targed: ");
-			ChessPosition targed = Ui.readChessPosition(sc);
+			try {
+				Ui.clearScreen();
+				Ui.printBoard(chessMatch.getPieces());
+				System.out.println();
+				System.out.println("Source: ");
+				ChessPosition source = Ui.readChessPosition(sc);
+		 		
+				System.out.println();
+				System.out.println("Targed: ");
+				ChessPosition targed = Ui.readChessPosition(sc);
 			
-			ChessPiece capturedPiece = chessMatch.performChessMove(source, targed);
+				ChessPiece capturedPiece = chessMatch.performChessMove(source, targed);
+			}catch(ChessException e) {
+				System.out.println(e.getMessage());
+				sc.nextLine();
+			}catch(InputMismatchException e) {
+				System.out.println(e.getMessage());
+				sc.nextLine();
+			}
 		}
 
 	}
